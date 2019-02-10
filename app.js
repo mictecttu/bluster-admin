@@ -1,6 +1,3 @@
-/**
- * Module dependencies.
- */
 const express = require('express');
 const compression = require('compression');
 const session = require('express-session');
@@ -79,7 +76,7 @@ app.use(session({
   cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
   store: new MongoStore({
     url: process.env.MONGODB_URI,
-    autoReconnect: true,
+    autoReconnect: true
   })
 }));
 app.use(passport.initialize());
