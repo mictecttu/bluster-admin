@@ -1,6 +1,6 @@
 ![](./public/images/logo.png)
 
-Bluster :loud_speaker: 
+Bluster :loudspeaker: :email:
 =======================
 > Bluster is platform to send bulk SMS and emails to a group of contacts. 
 
