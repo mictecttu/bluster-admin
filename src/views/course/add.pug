@@ -1,0 +1,29 @@
+include ../layout
+include course
+
+block content
+    .container
+        .pb-2.mt-2.mb-4.border-bottom
+            h3 New Course
+        form(id='signup-form', method='POST')
+            input(type='hidden', name='_csrf', value=_csrf)
+            .form-group.row
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='fullName') Course Name :
+                .col-md-7
+                    input.form-control(type='text', name='name', id='fullName', placeholder='Maths Comp', autofocus, required)
+            .form-group.row
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='code') Registration Number :
+                .col-md-7
+                    input.form-control(type='text', name='code', id='code', placeholder='MSPS001', required)
+            .form-group.row
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='Department') Department :
+                .col-md-7
+                    select.form-control(name='department', id='Department', required)
+                        option(value='MSPS') MSPS
+                        option(value='IC') IC
+                        option(value='BMS') BMS
+                        option(value='MMPE') MMPE
+            .form-group.offset-sm-3.col-md-7.pl-2
+                button.btn.btn-success(type='submit')
+                    i.fas.fa-user-plus.fa-sm
+                    | Add

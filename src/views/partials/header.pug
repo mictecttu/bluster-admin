@@ -12,6 +12,8 @@
           a.nav-link(href='/groups') Groups
         li.nav-item(class=(title === 'Contacts') ? 'active' : undefined)
           a.nav-link(href='/contacts') Contacts
+        li.nav-item(class=(title === 'Courses') ? 'active' : undefined)
+          a.nav-link(href='/courses') Courses
       ul.nav.navbar-nav.ml-auto
         if !user
           li.nav-item(class=(title === 'Login') ? 'active' : undefined)

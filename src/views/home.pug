@@ -1,27 +1,27 @@
 extends layout
 
 block content
-  h1 Bluster
-  p.lead A mass notification and planning platform.
-  hr
+  div.text-center
+    img(src="/images/logo.png")
+
+  br
+  br
+  p.text-center.lead A mass notification and planning platform.
+  hr.my-5
+  .row.mt-5
+    .col-md-4.text-center
+      h2.text-success SMS
+        i.fa.fa-comment.px-3
+      p Send notifications to a group
+    .col-md-4.text-center
+      h2.text-primary Email
+        i.fa.fa-mail-bulk.px-3
+      p Send notifications to a group
+    .col-md-4.text-center
+      h2.text-warning USSD
+        i.fa.fa-phone.px-3
+      p USSD to check your classes
+
+  hr.my-5
   .row
-    .col-md-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-raised(href='#', role='button') View details »
-    .col-md-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-raised(href='#', role='button') View details »
-    .col-md-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-raised(href='#', role='button') View details »
-    .col-md-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-raised(href='#', role='button') View details »
+

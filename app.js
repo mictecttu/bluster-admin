@@ -12,8 +12,8 @@ const flash = require('express-flash');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const bluebird = require('bluebird');
 const expressValidator = require('express-validator');
-// const sass = require('node-sass-middleware');
 const multer = require('multer');
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
@@ -22,18 +22,6 @@ const upload = multer({ dest: path.join(__dirname, 'uploads') });
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
 dotenv.load({ path: '.env' });
-
-/**
- * Controllers (route handlers).
- */
-const homeController = require('./src/controllers/home');
-const userController = require('./src/controllers/user');
-
-
-/**
- * API keys and Passport configuration.
- */
-const passportConfig = require('./config/passport');
 
 /**
  * Create Express server.
@@ -47,6 +35,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
 mongoose.connect(process.env.MONGODB_URI);
+mongoose.Promise = bluebird;
 mongoose.connection.on('error', (err) => {
   console.error(err);
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
@@ -61,10 +50,6 @@ app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 9000);
 app.set('views', path.join(__dirname, './src/views'));
 app.set('view engine', 'pug');
 app.use(compression());
-/*app.use(sass({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public')
-}));*/
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -87,6 +72,7 @@ app.use((req, res, next) => {
     next();
   } else {
     lusca.csrf()(req, res, next);
+    // next();
   }
 });
 app.use(lusca.xframe('SAMEORIGIN'));
@@ -116,38 +102,12 @@ app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/bootstrap/d
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/jquery/dist'), { maxAge: 31557600000 }));
 app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free/webfonts'), { maxAge: 31557600000 }));
 
-/**
- * Primary app routes.
- */
-app.get('/', homeController.index);
-app.get('/login', userController.getLogin);
-app.post('/login', userController.postLogin);
-app.get('/logout', userController.logout);
-app.get('/forgot', userController.getForgot);
-app.post('/forgot', userController.postForgot);
-app.get('/reset/:token', userController.getReset);
-app.post('/reset/:token', userController.postReset);
-app.get('/signup', userController.getSignup);
-app.post('/signup', userController.postSignup);
-app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
-app.post('/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);
-app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
-app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
-app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
-
-
-/**
- * OAuth authentication routes. (Sign in)
- */
-
-app.get('/auth/github', passport.authenticate('github', { scope: ['email'] }));
-app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
-});
-app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
-});
+/*
+* Import routes
+* */
+require('./src/routes/auth.js')(app);
+require('./src/routes/contact.js')(app);
+require('./src/routes/courses')(app);
 
 /**
  * Error Handler.
