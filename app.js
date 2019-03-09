@@ -71,8 +71,9 @@ app.use((req, res, next) => {
   if (req.path === '/api/upload') {
     next();
   } else {
-    lusca.csrf()(req, res, next);
-    // next();
+    console.log(req.body);
+    // lusca.csrf()(req, res, next);
+    next();
   }
 });
 app.use(lusca.xframe('SAMEORIGIN'));

@@ -4,3 +4,24 @@ include course
 
 block content
     .container
+        table.table.table-hover
+            thead
+                tr
+                    th(scope='col') #
+                    th(scope='col') Course
+                    th(scope='col') Code
+                    th(scope='col') Department
+                    th(scope='col') Action
+            - let index = 1;
+            each course in courses
+                tbody
+                    tr
+                        td #{index}
+                        td #{course.name}
+                        td #{course.code}
+                        td #{course.department}
+                        td
+                            i.fas.fa-pencil-alt.fa-md.text-success.pl-2(style='cursor:pointer;', onClick="deleteCourse('" + course._id + " ', \'"+ _csrf + "\')")
+                            i.fas.fa-trash.fa-md.text-danger.pl-2(style='cursor:pointer;')
+
+                - index += 1;
