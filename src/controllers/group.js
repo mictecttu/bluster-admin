@@ -1,4 +1,5 @@
 const Group = require('../models/ContactGroup');
+const Contact = require('../models/Contact');
 
 /*
 * GET /groups
@@ -11,6 +12,24 @@ exports.index = async (req, res) => {
     title: 'Groups',
     groups
   });
+};
+
+/*
+* GET /groups/{id}
+* Group home page
+* */
+exports.group = async (req, res) => {
+  try {
+    const group = await Group.findById(req.params.id);
+    const contacts = await Contact.find();
+    res.render('group/group', {
+      title: group.name,
+      group,
+      contacts
+    })
+  } catch (e) {
+    res.json({ message: e.message });
+  }
 };
 
 /*

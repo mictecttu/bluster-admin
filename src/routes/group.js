@@ -23,6 +23,7 @@ const groupRoutes = (app) => {
   app.get('/groups/add', groupController.add);
   app.post('/groups/add', upload.single('coverPhoto'), groupController.addNew);
   app.put('/groups/edit', groupController.addNew);
-}
+  app.get('/groups/:id', groupController.group);
+};
 
 module.exports = groupRoutes;
