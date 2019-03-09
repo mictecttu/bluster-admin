@@ -1,0 +1,29 @@
+include ../layout
+
+include ./contact
+
+block content
+    .container
+        table.table.table-hover
+            thead
+                tr
+                    th(scope='col') #
+                    th(scope='col') Name
+                    th(scope='col') Phone Number
+                    th(scope='col') Course
+                    th(scope='col') Email
+                    th(scope='col') Action
+            - let index = 1;
+            each contact in contacts
+                tbody
+                    tr
+                        td #{index}
+                        td #{contact.name}
+                        td #{contact.phoneNo}
+                        td #{contact.course.name}
+                        td #{contact.email}
+                        td
+                            i.fas.fa-pencil-alt.fa-md.text-success.pl-2(style='cursor:pointer;', onClick="deleteCourse('" + contact._id + " ', \'" + _csrf + "\')")
+                            i.fas.fa-trash.fa-md.text-danger.pl-2(style='cursor:pointer;')
+
+                - index += 1;
