@@ -10,7 +10,7 @@ block content
             .form-group.row
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='fullName') Full name :
                 .col-md-7
-                    input.form-control(type='text', name='fullName', id='fullName', placeholder='Jane Doe', autofocus, autocomplete='fullName', required)
+                    input.form-control(type='text', name='name', id='fullName', placeholder='Jane Doe', autofocus, required)
             .form-group.row
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Email :
                 .col-md-7
@@ -18,7 +18,7 @@ block content
             .form-group.row
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='phoneNumber') Phone Number :
                 .col-md-7
-                    input.form-control(type='number', name='phoneNumber', id='phoneNumber', placeholder='+254784020300', autocomplete='new-phoneNumber', required)
+                    input.form-control(type='number', name='phoneNo', id='phoneNumber', placeholder='+254784020300', required)
             .form-group.row
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='registrationNumber') Registration Number :
                 .col-md-7
@@ -27,9 +27,8 @@ block content
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='course') Course :
                 .col-md-7
                     select.form-control(name='course', id='course', required)
-                        option(value='MSPS001') Mathematics & Computer Science
-                        option(value='MSPS002') Information Technology
-                        option(value='MSPS003') Statistics
+                        each course in courses
+                            option(value=course._id) #{course.name}
             .form-group.offset-sm-3.col-md-7.pl-2
                 button.btn.btn-success(type='submit')
                     i.fas.fa-user-plus.fa-sm

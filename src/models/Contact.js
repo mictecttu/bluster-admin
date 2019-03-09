@@ -26,11 +26,11 @@ const ContactSchema = new Schema({
     ref: 'Course'
   },
   isPublic: {
-    type: Types.Boolean,
+    type: Boolean,
     default: false
   },
   groups: {
-    type: Types.Array
+    type: Array
   }
 }, { timestamps: true });
 
@@ -42,8 +42,8 @@ const ContactsJoiSchema = Joi.object({
   phone: Joi.number().integer().positive().greater(0).required(),
   idNo: Joi.number().greater(0).required(),
   course: Joi.number().greater(0).required(),
-  isPublic: Joi.boolean(),
+  isPublic: Joi.boolean()
 });
 
-module.default = Contact;
+module.exports = Contact;
 module.exports.validateContact = (contact) => Joi.validate(contact, ContactsJoiSchema);

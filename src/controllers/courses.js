@@ -18,7 +18,7 @@ exports.index = async (req, res) => {
 * */
 exports.add = (req, res) => {
   res.render('course/add', {
-    title: 'Add Course'
+    title: 'Courses'
   });
 };
 

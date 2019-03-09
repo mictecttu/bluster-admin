@@ -22,7 +22,7 @@ const CourseSchema = new Schema({
 
 CourseSchema.methods.validateCourse = (course) => Joi.validate(course, CoursesJoiSchema);
 
-const Course = mongoose.model('course', CourseSchema);
+const Course = mongoose.model('Course', CourseSchema);
 
 const CoursesJoiSchema = Joi.object({
   name: Joi.string().required(),
