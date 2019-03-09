@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
-const { Schema, Types } = mongoose;
+const { Schema } = mongoose;
 
 const ContactGroupSchema = new Schema({
   name: {
@@ -12,17 +12,21 @@ const ContactGroupSchema = new Schema({
     type: String,
     required: true
   },
-  description: {
+  adminPhoneNo: {
     type: String,
+    required: true
+  },
+  description: {
+    type: String
   },
   coverPhoto: {
     type: String
   },
-  members: Types.Array,
-  events: Types.Array,
+  members: Array,
+  events: Array
 }, { timestamps: true });
 
-const ContactGroup = mongoose.model('contactGroup', ContactGroupSchema);
+const ContactGroup = mongoose.model('Group', ContactGroupSchema);
 
 const ContactGroupsJoiSchema = Joi.object({
   name: Joi.string().required(),
@@ -31,5 +35,5 @@ const ContactGroupsJoiSchema = Joi.object({
   coverPhoto: Joi.string().required(),
 });
 
-module.default = ContactGroup;
+module.exports = ContactGroup;
 module.exports.validate = (group) => Joi.validate(group, ContactGroupsJoiSchema);

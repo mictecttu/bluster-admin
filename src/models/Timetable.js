@@ -13,7 +13,7 @@ const TimetableSchema = new Schema({
     default: "classes"
   },
   units: {
-    type: Types.Array
+    type: Array
   }
 }, { timestamps: true });
 

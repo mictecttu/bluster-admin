@@ -1,34 +1,37 @@
 include ../layout
-include ./contact
+include group
 
 block content
     .container
         .pb-2.mt-2.mb-4.border-bottom
-            h3 New Contact
-        form(id='signup-form', method='POST')
+            h3 New Group
+        form(id='signup-form', method='POST', enctype='multipart/form-data')
             input(type='hidden', name='_csrf', value=_csrf)
             .form-group.row
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='fullName') Full name :
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='name')  Name :
                 .col-md-7
-                    input.form-control(type='text', name='name', id='fullName', placeholder='Jane Doe', autofocus, required)
+                    input.form-control(type='text', name='name', id='name', placeholder='Mictech', autofocus, required)
             .form-group.row
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Email :
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='description')  Description :
                 .col-md-7
-                    input.form-control(type='email', name='email', id='email', placeholder='janedoe@gmail.com', autofocus, autocomplete='email', required)
+                    input.form-control(type='text', name='description', id='description', placeholder='A small description', onkeyup='countWords()' autofocus, required)
+                    p(id="wordCount") 250 words
             .form-group.row
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='phoneNumber') Phone Number :
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Group email :
                 .col-md-7
-                    input.form-control(type='number', name='phoneNo', id='phoneNumber', placeholder='+254784020300', required)
+                    input.form-control(type='email', name='email', id='email', placeholder='mictech@gmail.com', autofocus, autocomplete='email', required)
             .form-group.row
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='registrationNumber') Registration Number :
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='adminPhoneNo') Admin Phone Number :
                 .col-md-7
-                    input.form-control(type='text', name='registrationNumber', id='registrationNumber', placeholder='TU01-SC211-0465/2014', required)
+                    input.form-control(type='number', name='adminPhoneNo', id='adminPhoneNo', placeholder='+254784020300', required)
             .form-group.row
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='course') Course :
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='adminName') Admin name :
                 .col-md-7
-                    select.form-control(name='course', id='course', required)
-                        each course in courses
-                            option(value=course._id) #{course.name}
+                    input.form-control(type='text', name='owner', id='adminName', placeholder='John Doe', required)
+            .form-group.row
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='coverPhoto') Cover photo :
+                .col-md-7
+                    input(type='file', name='coverPhoto', id='coverPhoto')
             .form-group.offset-sm-3.col-md-7.pl-2
                 button.btn.btn-success(type='submit')
                     i.fas.fa-user-plus.fa-sm

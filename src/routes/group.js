@@ -1,11 +1,28 @@
+const multer = require('multer');
+const crypto = require('crypto');
+const path = require('path');
 
-const contactController = require('../controllers/contact');
+const groupController = require('../controllers/group');
+const storage = multer.diskStorage({
+  destination: 'public/images/uploads/groups',
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      if (err) return cb(err)
+      let filename = raw.toString('hex') + path.extname(file.originalname);
+      // pass the file name to the req body
+      req.body.coverPhoto = filename;
+      cb(null, filename)
+    })
+  }
+});
+const upload = multer({ storage });
 
-const contactRoutes = (app) => {
-  app.get('/contacts/', contactController.index);
-  app.get('/contacts/add', contactController.add);
-  app.post('/contacts/add', contactController.addNew);
-  app.put('/contacts/edit', contactController.addNew);
+
+const groupRoutes = (app) => {
+  app.get('/groups/', groupController.index);
+  app.get('/groups/add', groupController.add);
+  app.post('/groups/add', upload.single('coverPhoto'), groupController.addNew);
+  app.put('/groups/edit', groupController.addNew);
 }
 
-module.exports = contactRoutes;
+module.exports = groupRoutes;

@@ -14,9 +14,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const bluebird = require('bluebird');
 const expressValidator = require('express-validator');
-const multer = require('multer');
-
-const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -71,8 +68,8 @@ app.use((req, res, next) => {
   if (req.path === '/api/upload') {
     next();
   } else {
-    lusca.csrf()(req, res, next);
-    // next();
+    // lusca.csrf()(req, res, next);
+    next();
   }
 });
 app.use(lusca.xframe('SAMEORIGIN'));
@@ -108,6 +105,7 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 require('./src/routes/auth.js')(app);
 require('./src/routes/contact.js')(app);
 require('./src/routes/courses')(app);
+require('./src/routes/group')(app);
 
 /**
  * Error Handler.

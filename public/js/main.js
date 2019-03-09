@@ -30,3 +30,12 @@ console.log(csrf)
       console.log('Request failed', error);
     });
 }
+
+function countWords() {
+  let description = $('#description');
+  let val = description.val();
+  let length = val.trim().length;
+  if (length != 250) $('#wordCount').text(`${250 - length} words remaining`);
+  else document.getElementById('description').disabled = true;
+
+}

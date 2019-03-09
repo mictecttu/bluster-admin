@@ -18,9 +18,9 @@ const EventSchema = new Schema({
   coverPhoto: {
     type: String
   },
-  photos: Types.Array,
-  rsvps: Types.Array,
-  requirements: Types.Array,
+  photos: Array,
+  rsvps: Array,
+  requirements: Array,
   date: Types.Date,
   venue: {
     type: String,
