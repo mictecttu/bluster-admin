@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
-const { Schema, Types } = mongoose;
+const { Schema } = mongoose;
 
 const CourseSchema = new Schema({
   name: {
@@ -20,7 +20,7 @@ const CourseSchema = new Schema({
   timetable: Array
 }, { timestamps: true });
 
-CourseSchema.methods.validate = (course) => Joi.validate(course, CoursesJoiSchema);
+CourseSchema.methods.validateCourse = (course) => Joi.validate(course, CoursesJoiSchema);
 
 const Course = mongoose.model('course', CourseSchema);
 

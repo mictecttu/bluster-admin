@@ -24,19 +24,12 @@ exports.add = (req, res) => {
 * POST /course/add
 * Add a new course
 * */
-exports.addNew =  (req, res) => {
+exports.addNew = (req, res) => {
   let course = new Course(req.body);
-  // course.name = req.body.name;
-  // course.code = req.body.code;
-  // course.department = req.body.department;
-  // let isValid, { message } = await course.validate(course);
-  // if(isValid) {
-  //   return res.status(500).json({ success: false, message: 'Invalid object' });
-  // }
-  // course = await
-  course.save().then(course=> {
+  course.save().then(course => {
     res.json({ success: true, course });
-  }).catch(e=> {
-    res.json({ success: true, course });
-  });
+  }).catch(e => {
+    console.log(e);
+    res.json({ success: false, message: e.message });
+  })
 };

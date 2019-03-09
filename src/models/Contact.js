@@ -13,7 +13,7 @@ const ContactSchema = new Schema({
     required: true
   },
   idNo: {
-    type: Number,
+    type: Number
   },
   reqNo: {
     type: String
@@ -46,4 +46,4 @@ const ContactsJoiSchema = Joi.object({
 });
 
 module.default = Contact;
-module.exports.validate = (contact) => Joi.validate(contact, ContactsJoiSchema);
+module.exports.validateContact = (contact) => Joi.validate(contact, ContactsJoiSchema);
