@@ -24,6 +24,7 @@ const groupRoutes = (app) => {
   app.post('/groups/add', upload.single('coverPhoto'), groupController.addNew);
   app.put('/groups/edit', groupController.addNew);
   app.get('/groups/:id', groupController.group);
+  app.post('/groups/:id/add', groupController.addMembers);
 };
 
 module.exports = groupRoutes;

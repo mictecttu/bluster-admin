@@ -22,10 +22,16 @@ exports.group = async (req, res) => {
   try {
     const group = await Group.findById(req.params.id);
     const contacts = await Contact.find();
+    let members = [];
+    group.members.forEach((member) => {
+      contacts.forEach((contact) => { if (contact._id == member) members.push(contact) });
+    });
+
     res.render('group/group', {
       title: group.name,
       group,
-      contacts
+      contacts,
+      members
     })
   } catch (e) {
     res.json({ message: e.message });
@@ -51,11 +57,41 @@ exports.add = async (req, res) => {
 exports.addNew = async (req, res) => {
   let group = new Group(req.body);
   try {
-    group = await group.save();
+    await group.save();
     req.flash('success', { msg: 'Group added successfully' });
     res.redirect('/groups');
   }catch (e) {
     req.flash('errors', { msg: e.message });
-    res.json({ succcess: false, message: e.message });
+    res.json({ success: false, message: e.message });
+  }
+};
+
+/*
+* POST /group/{id}/add
+* Add members to a group
+* */
+exports.addMembers = async (req, res) => {
+  let groupId = req.params.id;
+  let keys = Object.keys(req.body);
+  let members = keys.filter(key => { if(req.body[key] === 'on') return key });
+
+  try {
+    // Add the ids to the group
+    let group = await Group.findById(groupId);
+    // Remove existing members in group
+    members = members.filter(member => { if(group.members.indexOf(member) === -1) return member });
+    group.members.push(...members); // Spread the members
+    await group.save();
+
+    // Add the group id to each contact object
+    members.forEach(async (contactId) => {
+      let member = await Contact.findById(contactId);
+      member.groups.push(groupId);
+      await member.save();
+    });
+    req.flash('success', { msg: `${members.length} members added to ${group.name}` });
+    res.redirect('/groups/'+groupId);
+  }catch (e) {
+    res.json({ message: e.message });
   }
 };

@@ -3,11 +3,11 @@ include ../layout
 include layout
 
 block content
-    .container.border-top
+    .container.border-top.py-3
         each group in groups
             - let coverPhoto = '/images/uploads/groups/'+ group.coverPhoto;
-            div.media.border-bottom.my-2.p-2
-                img.mr-3(src=coverPhoto, alt='#{group.description}', style='width:64px;height:64px;')
+            div.media.border-bottom.my-2.py-4
+                img.mr-3(src=coverPhoto, alt='#{group.description}', style='width:100px;height:100px;border-radius:6px;')
                 div.media-body
                     h4.mt-0
                         a(href='/groups/'+ group._id) #{group.name}
