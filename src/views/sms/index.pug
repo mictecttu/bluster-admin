@@ -1,0 +1,25 @@
+include ../layout
+
+include sms
+
+block content
+    .container
+        form(method='post' action='/sms/send')
+            input(type='hidden' name='csrf' value=_csrf)
+            .row
+                .col-6
+                    .form-group.border-top.p-3
+                        label.col-form-label.font-weight-bold.text-right(for='message') Compose a message :
+                        textarea.form-control(id='message' name='message' style='border-radius:6px; resize:none;' rows='7')
+                .col-6
+                    .form-group.border-top.p-3
+                        label.col-form-label.font-weight-bold.text-right(for='group') Select a target group :
+                        select.form-control(name='group', id='group' required)
+                            option(value='null') -- select a group --
+                            each group in groups
+                                option(value=group._id) #{group.name}
+                        //p#totalMembers No group selected
+                    .form-group.offset-sm-5.col-md-7.mt-5.pt-5
+                        button.btn.btn-success.float-right(type='submit')
+                            i.fas.fa-user-plus.fa-sm
+                            | Send

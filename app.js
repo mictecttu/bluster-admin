@@ -106,6 +106,7 @@ require('./src/routes/auth.js')(app);
 require('./src/routes/contact.js')(app);
 require('./src/routes/courses')(app);
 require('./src/routes/group')(app);
+require('./src/routes/sms')(app);
 
 /**
  * Error Handler.

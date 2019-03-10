@@ -7,12 +7,17 @@ block content
   br
   br
   p.text-center.lead A mass notification and planning platform.
+  div.text-center.mt-5.mb-3
+      button.btn.btn-success(onclick="window.location = '/sms'")
+        i.fas.fa-share-alt.fa-md
+        | Send a message
   hr.my-5
   .row.mt-5
     .col-md-4.text-center
       h2.text-success SMS
         i.fa.fa-comment.px-3
-      p Send notifications to a group
+      p
+        a(href='/messages' style='decoration:none;') Send notifications to a group
     .col-md-4.text-center
       h2.text-primary Email
         i.fa.fa-mail-bulk.px-3
