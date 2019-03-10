@@ -1,5 +1,6 @@
 const Group = require('../models/ContactGroup');
 const Contact = require('../models/Contact');
+const logger = require('../utils/logger');
 
 // Set your app credentials
 const credentials = {
@@ -63,7 +64,12 @@ exports.send = async (req, res) => {
   // send the message
   sendMessage('', phoneNumbers, message)
     .then((response) => {
-      res.json({ success: true, ...response })
+      res.json({ success: true, ...response });
+      // TODO collect responses to database
+      // Save the message, group and response
+      response.SMSMessageData.payload = message;
+      response.SMSMessageData.group = groupId;
+      logger(response);
     })
     .catch((e) => {
       res.json({success: false, message: e.message });
